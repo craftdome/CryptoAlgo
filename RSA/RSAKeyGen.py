@@ -35,7 +35,7 @@ class PrivateKey:
         Создание цифровой подписи по хэшу входного файла
         :return: результат применение закрутого ключа (т. е. ЭЦП)
         """
-        sha1_hash = hashlib.sha1(from_file.read().encrypt("utf-8")).digest()
+        sha1_hash = hashlib.sha1(from_file.read().encode("utf-8")).digest()
         res = self.apply(sha1_hash, bytes_read=1, bytes_write=3).hex()
         return res
 
@@ -121,7 +121,7 @@ class PublicKey:
         :return: True если документ не изменён, иначе False
         """
         # Считаем хэш файла, который собираемся проверять на целосность
-        sha1_hash = hashlib.sha1(validate_file.read().encrypt("utf-8")).digest()
+        sha1_hash = hashlib.sha1(validate_file.read().encode("utf-8")).digest()
 
         # Считываем строку из файла с ЭЦП и переводим хекс в байты
         digest = bytes.fromhex(sign_file.read())
